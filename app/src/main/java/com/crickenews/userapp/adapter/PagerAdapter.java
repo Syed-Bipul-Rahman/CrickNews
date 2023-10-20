@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.crickenews.userapp.view.MatchFragment;
-import com.crickenews.userapp.view.StatesFragment;
-import com.crickenews.userapp.view.TableFragment;
+import com.crickenews.userapp.view.fragments.MatchFragment;
+import com.crickenews.userapp.view.fragments.StatesFragment;
+import com.crickenews.userapp.view.fragments.TableFragment;
 
 
 public class PagerAdapter extends FragmentPagerAdapter{

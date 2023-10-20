@@ -1,4 +1,4 @@
-package com.crickenews.userapp.view;
+package com.crickenews.userapp.view.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +17,7 @@ import com.crickenews.userapp.network.ApiClient;
 import com.crickenews.userapp.network.ApiService;
 import com.crickenews.userapp.presenter.MatchPresenter;
 import com.crickenews.userapp.presenter.MatchPresenterImpl;
+import com.crickenews.userapp.view.MatchView;
 
 import java.util.ArrayList;
 import java.util.List;

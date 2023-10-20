@@ -1,4 +1,4 @@
-package com.crickenews.userapp.view;
+package com.crickenews.userapp.view.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

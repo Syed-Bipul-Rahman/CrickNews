@@ -1,4 +1,4 @@
-package com.crickenews.userapp.view;
+package com.crickenews.userapp.view.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +10,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.crickenews.userapp.R;
 import com.crickenews.userapp.model.Table;
 import com.crickenews.userapp.network.ApiClient;
 import com.crickenews.userapp.network.ApiService;
+import com.crickenews.userapp.presenter.TablePresenter;
+import com.crickenews.userapp.presenter.TablePresenterImpl;
+import com.crickenews.userapp.view.TableAdapter;
+import com.crickenews.userapp.view.TableView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +31,12 @@ import retrofit2.Response;
  * Use the {@link TableFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TableFragment extends Fragment {
+public class TableFragment extends Fragment implements TableView {
     private RecyclerView recyclerView;
     private TableAdapter adapter;
     private List<Table> tableList;
     private ApiService apiService;
+    private TablePresenter tablePresenter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,8 +79,7 @@ public class TableFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //  return inflater.inflate(R.layout.fragment_table, container, false);
 
@@ -98,39 +101,48 @@ public class TableFragment extends Fragment {
         // Initialize Retrofit service
         apiService = ApiClient.getClient().create(ApiService.class);
 
-
-        fetchStatsData();
+        tablePresenter = new TablePresenterImpl(this, apiService);
+        tablePresenter.fetchTable();
 
         return view;
 
     }
+//
+//    private void fetchStatsData() {
+//
+//        Call call = apiService.getAllStats();
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onResponse(Call call, Response response) {
+//                if (response.isSuccessful()) {
+//                    // Log.d("response", "onResponse: "+response.body());
+//                    List<Table> table = (List<Table>) response.body();
+//                    for (int i = 0; i < table.size(); i++) {
+//                        addData(table.get(i));
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call call, Throwable t) {
+//                Toast.makeText(getContext(), "Something went wrong, failed to fetch data from server", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-    private void fetchStatsData() {
 
-        Call call = apiService.getAllStats();
-        call.enqueue(new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) {
-                if (response.isSuccessful()) {
-                    // Log.d("response", "onResponse: "+response.body());
-                    List<Table> table = (List<Table>) response.body();
-                    for (int i = 0; i < table.size(); i++) {
-                        addData(table.get(i));
-                    }
-                }
-            }
+   // }
 
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong, failed to fetch data from server", Toast.LENGTH_SHORT).show();
-            }
-        });
+//    public void addData(Table table) {
+//        tableList.add(table);
+//        adapter.notifyItemInserted(tableList.size() - 1); // Notify adapter of the new item
+//    }
+
+    @Override
+    public void showTables(List<Table> tables) {
+        tableList.clear();
+        tableList.addAll(tables);
+        adapter.notifyDataSetChanged();
 
 
-    }
-
-    public void addData(Table table) {
-        tableList.add(table);
-        adapter.notifyItemInserted(tableList.size() - 1); // Notify adapter of the new item
     }
 }
