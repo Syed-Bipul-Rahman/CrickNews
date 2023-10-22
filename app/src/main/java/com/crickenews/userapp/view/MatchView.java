@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface MatchView {
     void showMatches(List<Matches> matches);
-
+    void showHideState(boolean visible);
 }

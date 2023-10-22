@@ -28,8 +28,9 @@ public class MatchPresenterImpl implements MatchPresenter {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Matches> matches = response.body();
                     view.showMatches(matches);
+                    view.showHideState(true);
                 } else {
-                    // Handle API call errors
+                    view.showHideState(false);
                 }
             }
 

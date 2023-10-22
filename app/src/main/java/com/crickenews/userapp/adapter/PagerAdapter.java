@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.crickenews.userapp.view.fragments.MatchFragment;
-import com.crickenews.userapp.view.fragments.StatesFragment;
+import com.crickenews.userapp.view.fragments.LiveFragment;
 import com.crickenews.userapp.view.fragments.TableFragment;
 
 
@@ -29,7 +29,7 @@ public class PagerAdapter extends FragmentPagerAdapter{
             case 1:
                 return new TableFragment();
             case 2:
-                return new StatesFragment();
+                return new LiveFragment();
             default:
                 return null;
         }
